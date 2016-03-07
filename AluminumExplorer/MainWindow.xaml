@@ -12,15 +12,12 @@
         <BitmapImage x:Key="redbrowsericon_256" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Nihal Talur\Dropbox\Pictures\ICONS\spicons\AluminumExplorer\256-red-browser.png"/>
     </Window.Resources>
     <Grid>
-        <dragablz:TabablzControl Margin="8">
+        <dragablz:TabablzControl Margin="6">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="Tab No. 1" IsSelected="True">
-                <TextBlock>Hello World</TextBlock>
-            </TabItem>
-            <TabItem Header="Tab No. 2">
-                <TextBlock>We Have Tearable Tabs!</TextBlock>
+            <TabItem Header="Start" IsSelected="True">
+                
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>
