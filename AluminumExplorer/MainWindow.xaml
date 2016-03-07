@@ -1,12 +1,27 @@
-﻿<Window x:Class="AluminumExplorer.MainWindow"
+﻿<Controls:MetroWindow x:Name="AppWindow" x:Class="AluminumExplorer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AluminumExplorer"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="AluminumExplorer" Height="768" Width="1366" WindowState="Maximized" WindowStartupLocation="CenterScreen" Icon="{DynamicResource redbrowsericon_256}">
+    <Window.Resources>
+        <BitmapImage x:Key="redbrowsericon_256" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Nihal Talur\Dropbox\Pictures\ICONS\spicons\AluminumExplorer\256-red-browser.png"/>
+    </Window.Resources>
     <Grid>
-        
+        <dragablz:TabablzControl Margin="8">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem Header="Tab No. 1" IsSelected="True">
+                <TextBlock>Hello World</TextBlock>
+            </TabItem>
+            <TabItem Header="Tab No. 2">
+                <TextBlock>We Have Tearable Tabs!</TextBlock>
+            </TabItem>
+        </dragablz:TabablzControl>
     </Grid>
-</Window>
+</Controls:MetroWindow>
