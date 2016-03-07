@@ -8,6 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366">
     <Grid>
-        
+        <cefSharp:ChromiumWebBrowser Address="https://google.com"></cefSharp:ChromiumWebBrowser>
     </Grid>
 </UserControl>

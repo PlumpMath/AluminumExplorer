@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CefSharp;
 
 namespace AluminumExplorer
 {
@@ -22,7 +23,15 @@ namespace AluminumExplorer
     {
         public BrowserViewTab()
         {
-            InitializeComponent();
+            try
+            {
+                Cef.Initialize(new CefSettings());
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Browser Core Load Error");
+            }
         }
     }
 }

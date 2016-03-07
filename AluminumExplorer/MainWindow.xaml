@@ -16,7 +16,7 @@
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="Start" IsSelected="True">
+            <TabItem Header="Home" IsSelected="True" Name="HomeTab">
                 
             </TabItem>
         </dragablz:TabablzControl>

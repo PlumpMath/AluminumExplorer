@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using Dragablz;
 
 namespace AluminumExplorer
 {
@@ -25,6 +26,7 @@ namespace AluminumExplorer
         public MainWindow()
         {
             InitializeComponent();
+            HomeTab.Content = new BrowserViewTab();
         }
     }
 }
