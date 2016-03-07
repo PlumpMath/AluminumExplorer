@@ -28,5 +28,10 @@ namespace AluminumExplorer
             InitializeComponent();
             HomeTab.Content = new BrowserViewTab();
         }
+
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

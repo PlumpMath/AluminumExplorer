@@ -16,6 +16,11 @@ namespace AluminumExplorer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (Settings.AESettings.Default.UpgradeRequired)
+            {
+                Settings.AESettings.Default.Upgrade();
+                Settings.AESettings.Default.UpgradeRequired = false;
+            }
             // get the current app style (theme and accent) from the application
             // you can then use the current theme and custom accent instead set a new theme
             Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);

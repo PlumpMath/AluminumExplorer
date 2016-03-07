@@ -69,5 +69,14 @@ namespace AluminumExplorer.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The page could not be loaded :(.
+        /// </summary>
+        internal static string couldnotload {
+            get {
+                return ResourceManager.GetString("couldnotload", resourceCulture);
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@
         <BitmapImage x:Key="redbrowsericon_256" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Nihal Talur\Dropbox\Pictures\ICONS\spicons\AluminumExplorer\256-red-browser.png"/>
     </Window.Resources>
     <Grid>
-        <dragablz:TabablzControl Margin="6">
+        <dragablz:TabablzControl Margin="6" SelectionChanged="TabablzControl_SelectionChanged">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
