@@ -9,15 +9,23 @@ namespace AluminumExplorer.Tools
 {
     class NavigationHelper
     {
-        public string ProcessURL(Uri address)
+        public string ProcessURL(string address)
         {
-            bool absoluteUri = address.IsAbsoluteUri;
-            string processedAddress = address.ToString();
-            if (!absoluteUri)
+            bool validUri = Uri.IsWellFormedUriString(address, UriKind.RelativeOrAbsolute);
+            string processedAddress = address;
+            if (!validUri)
             {
-                processedAddress = address.AbsoluteUri;
+                Uri protocolUri;
+                if (Uri.TryCreate(processedAddress, UriKind.Absolute, out protocolUri) || Uri.TryCreate("http://" + processedAddress, UriKind.Absolute, out protocolUri))
+                {
+                    processedAddress = protocolUri.ToString();
+                }
             }
             return processedAddress;
+        }
+        public static Uri GetValidUri(string s)
+        {
+            return new UriBuilder(s).Uri;
         }
     }
 }

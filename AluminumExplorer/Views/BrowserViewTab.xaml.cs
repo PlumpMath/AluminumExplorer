@@ -23,6 +23,13 @@ namespace AluminumExplorer
     public partial class BrowserViewTab : UserControl
     {
         NavigationHelper navHelper;
+        string smartDomainView = "";
+        string actualUrl = "";
+        Dictionary<string, string> ReservedUrls = new Dictionary<string, string>()
+        {
+            {"aluminumerror", "http://aluminumerror/"}
+        };
+
         public BrowserViewTab()
         {
             try
@@ -32,19 +39,44 @@ namespace AluminumExplorer
                 if (!System.IO.Directory.Exists(Settings.AESettings.Default.CachePath))
                     System.IO.Directory.CreateDirectory(Settings.AESettings.Default.CachePath);
                 if (!Cef.IsInitialized)
-                    Cef.Initialize(new CefSettings() { CachePath = Settings.AESettings.Default.CachePath});
+                    Cef.Initialize(new CefSettings() { CachePath = Settings.AESettings.Default.CachePath });
                 InitializeComponent();
                 navHelper = new NavigationHelper();
+                webViewController.LoadingStateChanged += WebViewController_LoadingStateChanged;
+                var scope = FocusManager.GetFocusScope(urlBar);
+                FocusManager.SetFocusedElement(scope, urlBar);
+                AddHandler(GotFocusEvent, new RoutedEventHandler(SelectAllText), true);
+                RegisterCommands();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Browser Core Load Error");
             }
         }
+        public RoutedCommand backButtonShortcut = new RoutedCommand();
+        private void RegisterCommands()
+        {
+            backButtonShortcut.InputGestures.Add(new KeyGesture(Key.Left, ModifierKeys.Alt));
+        }
+        void GoBack() { if (webViewController.CanGoBack){ webViewController.Back(); } }
+
+        private void WebViewController_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            webViewController.Dispatcher.Invoke(() =>
+            {
+                string addressUrl = webViewController.Address;
+                if (!ReservedUrls.ContainsValue(addressUrl))
+                {
+                    actualUrl = addressUrl;
+                    smartDomainView = new Uri(actualUrl).Host;
+                    urlBar.Text = smartDomainView;
+                }
+            });
+        }
 
         private void ChromiumWebBrowser_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            webViewController.RenderSize = new Size(webViewController.ActualWidth,webViewController.ActualHeight);
+            webViewController.RenderSize = new Size(webViewController.ActualWidth, webViewController.ActualHeight);
         }
 
         private void urlBar_KeyDown(object sender, KeyEventArgs e)
@@ -59,12 +91,55 @@ namespace AluminumExplorer
         {
             try
             {
-                webViewController.Load(navHelper.ProcessURL(new Uri(url)));
+                string processedUrl = navHelper.ProcessURL(url);
+                Uri tResult;
+                bool validUrl = Uri.TryCreate(processedUrl, UriKind.Absolute, out tResult)
+                    && tResult.Scheme == Uri.UriSchemeHttp;
+                if (validUrl)
+                    webViewController.Load(processedUrl);
+                else
+                    throw (new UriFormatException("Invalid URL."));
             }
             catch (Exception)
             {
-                webViewController.LoadHtml(Properties.Resources.couldnotload, "http://aluminumerror");
+                smartDomainView = "";
+                actualUrl = urlBar.Text;
+                webViewController.LoadHtml(Properties.Resources.couldnotload, ReservedUrls["aluminumerror"]);
             }
         }
+
+        private void urlBar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            urlBar.HorizontalContentAlignment = HorizontalAlignment.Center;
+            urlBar.Text = smartDomainView;
+        }
+
+        private void urlBar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            urlBar.HorizontalContentAlignment = HorizontalAlignment.Left;
+            urlBar.Text = actualUrl;
+        }
+
+        private static void SelectAllText(object sender, RoutedEventArgs e)
+        {
+            var textBox = e.OriginalSource as TextBox;
+            if (textBox != null)
+            {
+                Keyboard.Focus(textBox);
+                textBox.SelectAll();
+            }
+        }
+
+        private void urlBar_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            urlBar.SelectAll();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            urlBar.HorizontalContentAlignment = HorizontalAlignment.Center;
+        }
+
+
     }
 }

@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         mc:Ignorable="d"
-        Title="AluminumExplorer" Height="768" Width="1366" WindowState="Maximized" WindowStartupLocation="CenterScreen" Icon="{DynamicResource redbrowsericon_256}">
+        Title="AluminumExplorer" Height="768" Width="1366" WindowState="Maximized" WindowStartupLocation="CenterScreen" Icon="{DynamicResource redbrowsericon_256}" Closing="AppWindow_Closing" Closed="AppWindow_Closed">
     <Window.Resources>
         <BitmapImage x:Key="redbrowsericon_256" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Nihal Talur\Dropbox\Pictures\ICONS\spicons\AluminumExplorer\256-red-browser.png"/>
     </Window.Resources>

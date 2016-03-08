@@ -33,5 +33,15 @@ namespace AluminumExplorer
         {
 
         }
+
+        private void AppWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void AppWindow_Closed(object sender, EventArgs e)
+        {
+            CefSharp.Cef.Shutdown();
+        }
     }
 }

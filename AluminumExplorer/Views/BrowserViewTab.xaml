@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:AluminumExplorer"
              xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1366">
+             d:DesignHeight="768" d:DesignWidth="1366" Loaded="UserControl_Loaded">
     <Grid>
 
         <cefSharp:ChromiumWebBrowser x:Name="webViewController" Address="https://google.com" Margin="0,28,0,0" SizeChanged="ChromiumWebBrowser_SizeChanged"/>
-        <TextBox x:Name="urlBar" TextWrapping="Wrap" Text="about:start" Margin="0,5,10,0" VerticalAlignment="Top" KeyDown="urlBar_KeyDown"/>
+        <TextBox x:Name="urlBar" TextWrapping="Wrap" Text="about:start" VerticalAlignment="Top" KeyDown="urlBar_KeyDown" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" LostFocus="urlBar_LostFocus" GotFocus="urlBar_GotFocus" GotKeyboardFocus="urlBar_GotKeyboardFocus"/>
     </Grid>
 </UserControl>
